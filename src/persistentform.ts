@@ -28,6 +28,10 @@ function isPersistableValueControl(
   return false
 }
 
+function isPersistableCheckbox(el: Element): el is HTMLInputElement {
+  return el instanceof HTMLInputElement && el.type === 'checkbox' && Boolean(el.name)
+}
+
 /**
  * Restores string values from localStorage (JSON object) onto persistable form controls.
  */
@@ -37,6 +41,17 @@ export function loadFormFieldValuesFromLocalStorage(form: HTMLFormElement, stora
     if (!raw) return
     const data = JSON.parse(raw) as Record<string, unknown>
     for (const el of Array.from(form.elements)) {
+      if (isPersistableCheckbox(el)) {
+        const v = data[el.name]
+        if (typeof v === 'boolean') {
+          el.checked = v
+        } else if (v === 'true') {
+          el.checked = true
+        } else if (v === 'false') {
+          el.checked = false
+        }
+        continue
+      }
       if (!isPersistableValueControl(el)) continue
       const v = data[el.name]
       if (typeof v !== 'string') continue
@@ -51,8 +66,12 @@ export function loadFormFieldValuesFromLocalStorage(form: HTMLFormElement, stora
  * Persists persistable control values as a JSON object in localStorage.
  */
 export function saveFormFieldValuesToLocalStorage(form: HTMLFormElement, storageKey: string): void {
-  const data: Record<string, string> = {}
+  const data: Record<string, string | boolean> = {}
   for (const el of Array.from(form.elements)) {
+    if (isPersistableCheckbox(el)) {
+      data[el.name] = el.checked
+      continue
+    }
     if (!isPersistableValueControl(el)) continue
     data[el.name] = el.value
   }
@@ -63,9 +82,11 @@ export function saveFormFieldValuesToLocalStorage(form: HTMLFormElement, storage
   }
 }
 
-/** Loads saved values, then saves on every input. No-op if `form` is null. */
+/** Loads saved values, then saves on every input or checkbox change. No-op if `form` is null. */
 export function initPersistentForm(form: HTMLFormElement | null, storageKey: string): void {
   if (!form) return
   loadFormFieldValuesFromLocalStorage(form, storageKey)
-  form.addEventListener('input', () => saveFormFieldValuesToLocalStorage(form, storageKey))
+  const save = () => saveFormFieldValuesToLocalStorage(form, storageKey)
+  form.addEventListener('input', save)
+  form.addEventListener('change', save)
 }

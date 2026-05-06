@@ -105,13 +105,25 @@ textarea {
 
 .gc-demo__field {
   display: flex;
-  justify-content: space-between;
+  gap: 0.25rem;
   margin: 0 0 0.5rem;
+}
+
+.gc-demo__field:not(.gc-demo__field--checkbox) {
+  justify-content: space-between;
+}
+
+.gc-demo__field--checkbox {
+  padding-left: 35%;
 }
 
 .gc-demo__field input {
   width: 65%;
   box-sizing: border-box;
+}
+
+.gc-demo__field input[type='checkbox'] {
+  width: auto;
 }
 
 .gc-demo__status {
