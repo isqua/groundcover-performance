@@ -10,6 +10,41 @@
 
 <body>
   <div id="app">
+    <section class="gc-demo" aria-labelledby="gc-demo-heading">
+      <h2 id="gc-demo-heading">Groundcover configuration</h2>
+      <form name="groundcoverDemo" class="gc-demo__form">
+        <label class="gc-demo__field">
+          <span>API key</span>
+          <input name="apiKey" type="password" autocomplete="off" required autofocus />
+        </label>
+        <label class="gc-demo__field">
+          <span>Cluster</span>
+          <input name="cluster" type="text" autocomplete="off" required />
+        </label>
+        <label class="gc-demo__field">
+          <span>Environment</span>
+          <input name="environment" type="text" autocomplete="off" required />
+        </label>
+        <label class="gc-demo__field">
+          <span>DSN</span>
+          <input name="dsn" type="text" autocomplete="off" required />
+        </label>
+        <label class="gc-demo__field">
+          <span>App ID</span>
+          <input name="appId" type="text" autocomplete="off" required />
+        </label>
+
+        <output name="status" class="gc-demo__status" aria-live="polite"></output>
+
+        <div class="gc-demo__actions">
+          <button type="button" name="initialize">Initialize</button>
+          <br/>
+          <button type="button" name="replayStart">Start Recording</button>
+          <button type="button" name="replayStop">Stop Recording</button>
+        </div>
+      </form>
+    </section>
+
     <section>
       <h2 id="gc-demo-heading">Demo textarea</h2>
       <form action="#">

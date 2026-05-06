@@ -93,3 +93,29 @@ textarea {
   color: var(--text);
   background: var(--bg);
 }
+
+.gc-demo {
+  margin-bottom: 2rem;
+  max-width: 400px;
+}
+
+.gc-demo__field {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.5rem;
+}
+
+.gc-demo__field input {
+  width: 65%;
+  box-sizing: border-box;
+}
+
+.gc-demo__status {
+  display: block;
+  padding-left: 35%;
+  height: 1.5rem;
+}
+
+.gc-demo__actions {
+  padding-left: 35%;
+}
