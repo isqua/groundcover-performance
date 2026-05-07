@@ -1,11 +1,11 @@
 import groundcover from '@groundcover/browser'
 import { getNamedStringControl, trimValue } from './utils'
 
-type InitParams = NonNullable<Parameters<typeof groundcover.init>[0]>
+type InitParams = Parameters<typeof groundcover.init>[0];
 
-const DEMO_FIELD_NAMES = ['apiKey', 'appId', 'dsn', 'environment', 'cluster'] as const
-
-type DemoFieldName = (typeof DEMO_FIELD_NAMES)[number]
+function getFormFieldValue(form: HTMLFormElement, name: string): string {
+  return trimValue(getNamedStringControl(form, name)) ?? '';
+}
 
 function setStatus(el: HTMLOutputElement | null, message: string, kind: 'error' | 'success' | '') {
   if (!el) return
@@ -13,21 +13,16 @@ function setStatus(el: HTMLOutputElement | null, message: string, kind: 'error' 
   el.dataset.kind = kind
 }
 
-function buildInitPayload(form: HTMLFormElement): { payload: InitParams; error: string | null } {
-  const payload = {} as InitParams
+function buildInitPayload(form: HTMLFormElement): InitParams {
+  const payload: InitParams = {
+    apiKey: getFormFieldValue(form, 'apiKey'),
+    appId: getFormFieldValue(form, 'appId'),
+    dsn: getFormFieldValue(form, 'dsn'),
+    environment: getFormFieldValue(form, 'environment'),
+    cluster: getFormFieldValue(form, 'cluster'),
+  };
 
-  for (const key of DEMO_FIELD_NAMES) {
-    const v = trimValue(getNamedStringControl(form, key))
-    if (v === undefined) {
-      return {
-        payload,
-        error: `Missing required field: ${key}.`,
-      }
-    }
-    ; (payload as Record<DemoFieldName, string>)[key] = v
-  }
-
-  return { payload, error: null }
+  return payload
 }
 
 export function setupGroundcoverDemo(form: HTMLFormElement | null) {
@@ -58,11 +53,8 @@ export function setupGroundcoverDemo(form: HTMLFormElement | null) {
 
   btnInit.addEventListener('click', () => {
     setStatus(status, '', '')
-    const { payload, error } = buildInitPayload(form)
-    if (error) {
-      setStatus(status, error, 'error')
-      return
-    }
+    const payload = buildInitPayload(form);
+
     try {
       groundcover.init(payload)
       initialized = true
