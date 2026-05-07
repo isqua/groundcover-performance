@@ -20,6 +20,9 @@ function buildInitPayload(form: HTMLFormElement): InitParams {
     dsn: getFormFieldValue(form, 'dsn'),
     environment: getFormFieldValue(form, 'environment'),
     cluster: getFormFieldValue(form, 'cluster'),
+    options: {
+      enabledEvents: [],
+    },
   };
 
   return payload
@@ -58,6 +61,7 @@ export function setupGroundcoverDemo(form: HTMLFormElement | null) {
     try {
       groundcover.init(payload)
       initialized = true
+      console.log('Initialized with options:', payload?.options ?? 'No options');
       syncReplayButtons()
       setStatus(status, 'Initialized.', 'success')
     } catch (e) {
@@ -68,12 +72,14 @@ export function setupGroundcoverDemo(form: HTMLFormElement | null) {
   btnReplayStart.addEventListener('click', () => {
     setStatus(status, '', '')
     groundcover.startReplayRecording()
+    console.log('⏺ Started recording');
     setStatus(status, '⏺ Recording', 'success')
   })
 
   btnReplayStop.addEventListener('click', () => {
     setStatus(status, '', '')
     groundcover.stopReplayRecording()
+    console.log('Stopped recording');
     setStatus(status, 'Recording stopped', 'success')
   })
 }
