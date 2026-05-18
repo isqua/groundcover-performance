@@ -13,6 +13,6 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
-    "@groundcover/browser": "0.0.71"
+    "@groundcover/browser": "^0.0.74"
   }
 }
