@@ -22,6 +22,15 @@ function buildInitPayload(form: HTMLFormElement): InitParams {
     cluster: getFormFieldValue(form, 'cluster'),
     options: {
       enabledEvents: [],
+      sessionReplay: {
+        blockedSelectors: [
+          'grammarly-extension',
+          'grammarly-desktop-integration',
+          '[data-gramm]',
+          '[data-gramm_editor]',
+          '[data-grammarly-shadow-root]',
+        ],
+      },
     },
   };
 
