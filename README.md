@@ -38,7 +38,7 @@ If it does not reproduce on a fast machine, **CPU throttling** in Chrome DevTool
 ## Tested versions
 
 - Grammarly extension: 14.1289.0
-- `@groundcover/browser`: 0.0.71
+- `@groundcover/browser`: 0.0.75
 
 ## Local development
 
