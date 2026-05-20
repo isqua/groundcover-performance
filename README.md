@@ -1,6 +1,6 @@
 # Groundcover + Grammarly freeze (repro)
 
-Minimal page that loads the **[Groundcover RUM](https://docs.groundcover.com/getting-started/installation-and-updating/connect-rum)** browser SDK next to a plain `<textarea>`, to reproduce a **main-thread stall** when the **[Grammarly browser extension](https://chromewebstore.google.com/detail/kbfnbcaeplbcioakkpcpgfkobkghlhen)** is enabled and Groundcover **session recording** is on.
+Minimal React page that loads the **[Groundcover RUM](https://docs.groundcover.com/getting-started/installation-and-updating/connect-rum)** browser SDK next to a Mantine Rich Text Editor, to reproduce a **main-thread stall** when the **[Grammarly browser extension](https://chromewebstore.google.com/detail/kbfnbcaeplbcioakkpcpgfkobkghlhen)** is enabled and Groundcover **session recording** is on.
 
 ## Live demo
 
@@ -8,7 +8,7 @@ Minimal page that loads the **[Groundcover RUM](https://docs.groundcover.com/get
 
 ## What goes wrong
 
-With Grammarly installed and enabled, typing in the demo textarea is fine **until** you start Groundcover recording. After **Start recording**, typing in the textarea can **freeze the UI**.
+With Grammarly installed and enabled, typing in the demo editor is fine **until** you start Groundcover recording. After **Start recording**, typing in the editor can **freeze the UI**.
 
 If it does not reproduce on a fast machine, **CPU throttling** in Chrome DevTools (Performance panel) often makes it visible.
 
@@ -31,7 +31,7 @@ If it does not reproduce on a fast machine, **CPU throttling** in Chrome DevTool
 
 1. Click **Start recording** and confirm status shows **Recording**.
 
-1. Type in the **Demo textarea** — observe freezes / delayed input / non-blinking caret as described above
+1. Type in the **Demo rich text editor** — observe freezes / delayed input / non-blinking caret as described above
 
 1. Optional: enable **CPU throttling** in DevTools → **Performance** (or **Rendering**), then repeat step 7.
 
