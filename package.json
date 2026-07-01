@@ -19,7 +19,7 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
-    "@groundcover/browser": "0.0.75",
+    "@groundcover/browser": "0.1.0",
     "@mantine/core": "^9.2.1",
     "@mantine/form": "^9.2.1",
     "@mantine/hooks": "^9.2.1",
